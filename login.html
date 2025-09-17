@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayZone - Log In</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-image: url('gp.jpg');
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .logo-container {
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+        
+        .input-field {
+            transition: all 0.3s ease;
+            border: 2px solid #e1e8ed;
+        }
+        
+        .input-field:focus {
+            border-color: #0070ba;
+            box-shadow: 0 0 0 3px rgba(0, 112, 186, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0070ba 0%, #1546a0 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .a:hover {
+            background: linear-gradient(135deg, #005ea6 0%, #0d3a82 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 112, 186, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #f7f9fa;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #edf2f7;
+            transform: translateY(-1px);
+        }
+        
+        .footer-link {
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: #0070ba;
+        }
+        
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 20px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen w-full flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full login-container">
+            <div class="background">
+            <!-- Header -->
+            <div class="p-8 text-center">
+                <div class="logo-container mb-8">
+                    <img src="" 
+                         alt="GroupWork logo"
+                         class="mx-auto h-14"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'bg-blue-600 text-white font-bold text-2xl px-6 py-3 rounded inline-block\'>PayZone</div>'">
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800 mb-2">Log in to your account</h1>
+                <p class="text-gray-600 text-sm">Securely log in to your PayZone account</p>
+            </div>
+
+            <!-- Login Form -->
+            <div class="px-8 pb-8">
+                <form method="POST" class="space-y-6">
+                            <div class="text-red-500 text-sm mb-4">
+                            </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email or mobile</label>
+                        <input 
+                            type="text" 
+                            id="email"
+                            class="input-field w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Your email or mobile number"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                            <a href="#" class="text-sm text-blue-600 hover:text-blue-800 transition-colors">Forgot password?</a>
+                        </div>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password"
+                            class="input-field w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
+
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="remember" 
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        >
+                        <label for="remember" class="ml-2 block text-sm text-gray-700">Stay logged in for faster checkout</label>
+                    </div>
+
+                    <div class="mt-6">
+                        <button 
+                            class="btn-primary w-full py-3 px-4 rounded-lg text-white font-semibold shadow-md hover:shadow-lg transition-all"
+                        >
+                            <a href="dashboard.html">Log In</a>
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-6">
+                    <button 
+                        class="btn-secondary w-full py-3 px-4 rounded-lg text-gray-700 font-semibold border border-gray-300 hover:bg-gray-50 transition-all"
+                    >
+                        Sign Up
+                    </button>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <p class="text-sm text-gray-600 text-center">
+                        Looking for 
+                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium footer-link">PayZone Business</a> 
+                        or 
+                        <a href="#" class="text-blue-600 hover:text-blue-800 font-medium footer-link">Freelancer</a>?
+                    </p>
+                </div>
+            </div>
+
+            <!-- Security Notice -->
+            <div class="bg-gray-50 rounded-b-xl p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-gray-600">
+                            <span class="font-medium">Secure login</span> - Your information is protected by encryption.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-white bg-opacity-90 backdrop-blur-sm">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-6 text-xs text-gray-600">
+                <a href="#" class="footer-link hover:text-blue-600">Help</a>
+                <a href="#" class="footer-link hover:text-blue-600">Privacy</a>
+                <a href="#" class="footer-link hover:text-blue-600">Terms</a>
+                <a href="#" class="footer-link hover:text-blue-800">Feedback</a>
+                <a href="#" class="footer-link hover:text-blue-600">Cookies</a>
+            </div>
+            <p class="text-center text-xs text-gray-500 mt-2">© 2024 PayZone. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive effects
+        document.querySelectorAll('.input-field').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('transform', 'scale-105');
+            });
+            
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('transform', 'scale-105');
+            });
+        });
+    </script>
+</body>
+</html>

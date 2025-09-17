@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayZone - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #0070ba 0%, #1546a0 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #ffc439;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: #ffc439;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0070ba;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Account Summary */
+        .account-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .balance-display {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .balance-label {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0070ba;
+            margin-bottom: 1rem;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .action-btn:hover {
+            background: #0070ba;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 112, 186, 0.3);
+        }
+
+        .action-btn i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Transactions */
+        .transactions-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .view-all {
+            color: #0070ba;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .transactions-list {
+            list-style: none;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s ease;
+        }
+
+        .transaction-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0070ba;
+        }
+
+        .transaction-details h4 {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .transaction-details p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .transaction-amount {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .amount-positive {
+            color: #28a745;
+        }
+
+        .amount-negative {
+            color: #dc3545;
+        }
+
+        /* Cards Section */
+        .cards-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card-item {
+            background: linear-gradient(135deg, #0070ba 0%, #1546a0 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .card-chip {
+            width: 40px;
+            height: 30px;
+            background: #ffc439;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .card-number {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-holder {
+            font-size: 0.9rem;
+        }
+
+        .card-expiry {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .main-container {
+                padding: 0 1rem;
+            }
+
+            .balance-amount {
+                font-size: 2rem;
+            }
+
+            .transaction-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .transaction-amount {
+                align-self: flex-end;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            padding: 2rem;
+            text-align: center;
+            color: #666;
+            margin-top: 3rem;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #0070ba;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #1546a0;
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: white;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: #f8f9fa;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Flash messages */
+        .flash {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Flash messages -->
+            <div class="flash">
+            </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="" class="logo">Pay<span>Zone</span></a>
+            <div class="nav-links">
+                <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+                <a href=""><i class="fas fa-paper-plane"></i> Send & Request</a>
+                <a href="#"><i class="fas fa-wallet"></i> Wallet</a>
+                <a href="#"><i class="fas fa-chart-line"></i> Activity</a>
+                <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+            </div>
+            <div class="user-menu">
+                <a href="#" style="color: white;"><i class="fas fa-bell"></i></a>
+                <div class="dropdown">
+                    <div class="user-avatar">SY</div>
+                    <div class="dropdown-content">
+                        <a href="#"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#"><i class="fas fa-shield-alt"></i> Security</a>
+                        <a href="login.html"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Account Summary -->
+        <section class="account-summary">
+            <div class="balance-display">
+                <div class="balance-label">Available Balance</div>
+                <div class="balance-amount">$5,400,939</div>
+                <div class="balance-label">Linked to Bank Account ••••24680</div>
+            </div>
+
+            <div class="quick-actions">
+                <a href="send.html" class="action-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Send</span>
+                </a>
+                <a href="request.html" class="action-btn">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <span>Request</span>
+                </a>
+                <div  class="action-btn" onclick="showNotification('Shop clicked')">
+                    <a href="https://www.amazon.com/ref=ap_frn_logo" class="action-btn" onclick="showNotification('Shop clicked')">
+                    <i class="fas fa-store"></i>
+                    <span>Shop</span>
+                    </a>
+                </div>
+                <div class="action-btn" onclick="showNotification('Cards clicked')">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Cards</span>
+                </div>
+                <div class="action-btn" onclick="showNotification('Invest clicked')">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Invest</span>
+                </div>
+                <div class="action-btn" onclick="showNotification('More options clicked')">
+                    <i class="fas fa-ellipsis-h"></i>
+                    <span>More</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Transactions -->
+        <section class="transactions-section">
+            <div class="section-header">
+                <h2 class="section-title">Recent Activity</h2>
+                <a href="#" class="view-all">View All</a>
+            </div>
+
+            <ul class="transactions-list">
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Amazon Purchase</h4>
+                            <p>Today • Completed</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount amount-negative">-$89.99</div>
+                </li>
+
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon" style="background: #e3f2fd;">
+                            <i class="fas fa-user" style="color: #1976d2;"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Samuel Yeboah</h4>
+                            <p>Yesterday • Payment Received</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount amount-positive">+$150.00</div>
+                </li>
+
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon" style="background: #f3e5f5;">
+                            <i class="fas fa-utensils" style="color: #7b1fa2;"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Local Restaurant</h4>
+                            <p>2 days ago • Dining</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount amount-negative">-$45.75</div>
+                </li>
+
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon" style="background: #e8f5e8;">
+                            <i class="fas fa-money-bill-wave" style="color: #2e7d32;"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Monthly Salary</h4>
+                            <p>5 days ago • Direct Deposit</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount amount-positive">+$3,500.00</div>
+                </li>
+
+                <li class="transaction-item">
+                    <div class="transaction-info">
+                        <div class="transaction-icon" style="background: #fff3e0;">
+                            <i class="fas fa-gift" style="color: #ef6c00;"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Birthday Gift</h4>
+                            <p>1 week ago • Sent to Friend</p>
+                        </div>
+                    </div>
+                    <div class="transaction-amount amount-negative">-$100.00</div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Cards Section -->
+        <section class="cards-section">
+            <div class="section-header">
+                <h2 class="section-title">Your Cards</h2>
+                <a href="#" class="view-all">Manage Cards</a>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card-item">
+                    <div class="card-chip"></div>
+                    <div class="card-number">•••• •••• •••• 2976</div>
+                    <div class="card-info">
+                        <div class="card-holder">Samuel Yeboah</div>
+                        <div class="card-expiry">12/26</div>
+                    </div>
+                </div>
+
+                <div class="card-item" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+                    <div class="card-chip"></div>
+                    <div class="card-number">•••• •••• •••• 5678</div>
+                    <div class="card-info">
+                        <div class="card-holder">Samuel Yeboah</div>
+                        <div class="card-expiry">09/27</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Legal</a>
+            <a href="#">Feedback</a>
+            <a href="#">Help</a>
+            <a href="#">Contact</a>
+        </div>
+        <p>&copy; 2024 PayZone. All rights reserved.</p>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <span id="notification-message"></span>
+    </div>
+
+    <script>
+        // Notification system
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const messageEl = document.getElementById('notification-message');
+            
+            messageEl.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Simple transaction filtering (could be expanded)
+        document.addEventListener('DOMContentLoaded', function() {
+            const transactionItems = document.querySelectorAll('.transaction-item');
+            
+            transactionItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const amount = this.querySelector('.transaction-amount').textContent;
+                    showNotification('Transaction details: ' + amount);
+                });
+            });
+
+            // Simulate loading
+            setTimeout(() => {
+                showNotification('Welcome back! Dashboard loaded successfully.');
+            }, 1000);
+        });
+
+        // Responsive menu toggle for mobile
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('show');
+        }
+
+        // Auto-hide flash messages
+        setTimeout(() => {
+            const flash = document.querySelector('.flash');
+            if (flash) {
+                flash.style.display = 'none';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
